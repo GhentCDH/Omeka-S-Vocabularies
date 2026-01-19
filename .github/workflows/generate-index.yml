@@ -4,7 +4,6 @@ on:
   push:
     paths:
       - '**.json'
-      - '.github/workflows/generate-index.yml'
   workflow_dispatch:
 
 permissions:
@@ -32,9 +31,15 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # Fetch and checkout the index branch, creating if it doesn't exist
-          git fetch origin index:index 2>/dev/null || git checkout --orphan index
-          git checkout index
+          # Try to fetch the remote index branch
+          if git fetch origin index:index 2>/dev/null; then
+            # Remote branch exists, checkout the fetched branch
+            git checkout index
+          else
+            # Remote branch doesn't exist, create new orphan branch
+            git checkout --orphan index
+            git rm -rf . 2>/dev/null || true
+          fi
           
           # Copy the generated CSV from the main checkout
           cp /tmp/vocabulary_index.csv vocabulary_index.csv

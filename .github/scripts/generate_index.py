@@ -25,6 +25,7 @@ CSV_HEADERS = [
     "namespaceUri",
     "prefix",
     "format",
+    "comment",
     "last_modified"
 ]
 
@@ -47,7 +48,7 @@ def find_json_files(root: Path) -> list:
     return sorted(json_files)
 
 
-def extract_metadata(json_file: Path) -> dict:
+def extract_metadata(json_file: Path) -> dict|None:
     """Extract metadata from a JSON configuration file."""
     try:
         with open(json_file, 'r', encoding='utf-8') as f:
@@ -68,7 +69,8 @@ def extract_metadata(json_file: Path) -> dict:
             "namespaceUri": data.get("namespaceUri", ""),
             "prefix": data.get("prefix", ""),
             "format": data.get("format", ""),
-            "last_modified": mod_time
+            "comment": data.get("comment", ""),
+            "last_modified": mod_time,
         }
         
         return metadata
