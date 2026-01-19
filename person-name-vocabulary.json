@@ -1,0 +1,7 @@
+{
+    "url": "https://www.lodewijkpetram.nl/vocab/pnv/pnv.ttl",
+    "label": "Person Name Vocabulary",
+    "namespaceUri": "https://w3id.org/pnv#",
+    "prefix": "pnv",
+    "format": "auto"
+}
