@@ -1,0 +1,2 @@
+id,filename,url,label,namespaceUri,prefix,format,comment,last_modified
+person-name-vocabulary,person-name-vocabulary.json,https://www.lodewijkpetram.nl/vocab/pnv/pnv.ttl,Person Name Vocabulary,https://w3id.org/pnv#,pnv,auto,,2026-01-19T14:31:08.918196
