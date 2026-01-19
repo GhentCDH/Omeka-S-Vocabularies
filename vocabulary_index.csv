@@ -1,2 +1,3 @@
 id,filename,url,label,namespaceUri,prefix,format,comment,last_modified
-person-name-vocabulary,person-name-vocabulary.json,https://www.lodewijkpetram.nl/vocab/pnv/pnv.ttl,Person Name Vocabulary,https://w3id.org/pnv#,pnv,auto,,2026-01-19T14:31:08.918196
+cidoc-crm-7-1-3,cidoc-crm-7-1-3.json,https://cidoc-crm.org/rdfs/7.1.3/CIDOC_CRM_v7.1.3.rdf,CIDOC CRM (7.1.3),http://www.cidoc-crm.org/cidoc-crm/,crm,rdfxml,,2026-01-19T16:11:44.416912
+person-name-vocabulary,person-name-vocabulary.json,https://www.lodewijkpetram.nl/vocab/pnv/pnv.ttl,Person Name Vocabulary,https://w3id.org/pnv#,pnv,auto,,2026-01-19T16:11:44.416912
