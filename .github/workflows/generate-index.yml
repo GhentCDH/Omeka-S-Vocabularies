@@ -23,14 +23,13 @@ jobs:
       
       - name: Generate CSV index
         run: |
-          python .github/scripts/generate_index.py
-          cp vocabulary_index.csv /tmp/vocabulary_index.csv
+          python .github/scripts/generate_index.py --output /tmp/vocabulary_index.csv
       
       - name: Commit to index branch
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          
+                   
           # Try to fetch the remote index branch
           if git fetch origin index:index 2>/dev/null; then
             # Remote branch exists, checkout the fetched branch

@@ -6,6 +6,7 @@ Generate a CSV index of all vocabulary JSON configuration files.
 import json
 import csv
 import os
+import argparse
 from pathlib import Path
 from datetime import datetime
 
@@ -13,8 +14,6 @@ from datetime import datetime
 REPO_ROOT = Path(__file__).parent.parent.parent
 JSON_PATTERN = "*.json"
 EXCLUDE_DIRS = {".git", ".github", ".venv", "venv"}
-OUTPUT_DIR = REPO_ROOT
-OUTPUT_FILE = OUTPUT_DIR / "vocabulary_index.csv"
 
 # CSV column headers
 CSV_HEADERS = [
@@ -80,10 +79,10 @@ def extract_metadata(json_file: Path) -> dict|None:
         return None
 
 
-def generate_index():
+def generate_index(output_file: Path):
     """Generate the CSV index file."""
     # Create output directory if it doesn't exist
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    output_file.parent.mkdir(parents=True, exist_ok=True)
     
     # Find all JSON files
     json_files = find_json_files(REPO_ROOT)
@@ -100,14 +99,25 @@ def generate_index():
             records.append(metadata)
     
     # Write CSV file
-    with open(OUTPUT_FILE, 'w', newline='', encoding='utf-8') as csvfile:
+    with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=CSV_HEADERS)
         writer.writeheader()
         writer.writerows(records)
     
     print(f"✓ Generated index with {len(records)} vocabulary configuration(s)")
-    print(f"✓ Index saved to: {OUTPUT_FILE.relative_to(REPO_ROOT)}")
+    print(f"✓ Index saved to: {output_file}")
 
 
 if __name__ == "__main__":
-    generate_index()
+    parser = argparse.ArgumentParser(
+        description="Generate a CSV index of all vocabulary JSON configuration files."
+    )
+    parser.add_argument(
+        "-o", "--output",
+        type=Path,
+        default=Path("vocabulary_index.csv"),
+        help="Output CSV file path (default: vocabulary_index.csv in current directory)"
+    )
+    
+    args = parser.parse_args()
+    generate_index(args.output)
